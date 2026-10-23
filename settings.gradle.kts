@@ -24,3 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Imoves"
 include(":app")
+include(":data")
+include(":domain")
