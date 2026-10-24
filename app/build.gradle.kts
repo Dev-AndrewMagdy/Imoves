@@ -1,5 +1,6 @@
 import com.triangles.buildlogic.buildConfigStringField
 import com.triangles.buildlogic.getConfigProperty
+import com.triangles.buildlogic.staging
 
 plugins {
     alias(libs.plugins.android.application)
@@ -18,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.itland.ridecalculator"
+        applicationId = "com.triangles.imoves"
         minSdk = 24
         targetSdk = 36
         versionCode = getConfigProperty("VER-NUMBER").toInt()
@@ -30,10 +31,17 @@ android {
         debug {
             buildConfigStringField("API_URL", getConfigProperty("DEV-API-URL"))
         }
+        staging {
+            matchingFallbacks += listOf("release")
+            buildConfigStringField("API_URL", getConfigProperty("STAGING-API-URL"))
+        }
         release {
             isMinifyEnabled = false
             buildConfigStringField("API_URL", getConfigProperty("PRODUCTION-API-URL"))
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {

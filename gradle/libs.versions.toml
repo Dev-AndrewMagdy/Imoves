@@ -12,6 +12,7 @@ appcompat = "1.6.1"
 material = "1.10.0"
 ksp = "2.3.12"
 retrofit = "3.0.0"
+gson = "2.13.1"
 okhttp = "5.4.0"
 room = "2.8.5"
 paging = "3.5.3"
@@ -37,6 +38,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 

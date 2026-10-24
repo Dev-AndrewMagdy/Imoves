@@ -1,7 +1,10 @@
+import com.triangles.buildlogic.staging
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.imoves.helpers)
 }
 
 android {
@@ -45,6 +48,8 @@ dependencies {
 
     // Networking
     implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.gson)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
 
@@ -60,7 +65,6 @@ dependencies {
     // Debug tooling
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
-
     // Dependency injection
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
