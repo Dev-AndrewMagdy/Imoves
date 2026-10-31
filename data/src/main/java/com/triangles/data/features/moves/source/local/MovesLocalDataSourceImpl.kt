@@ -1,5 +1,6 @@
 package com.triangles.data.features.moves.source.local
 
+import androidx.paging.PagingSource
 import androidx.room.withTransaction
 import com.triangles.data.database.MovesDatabase
 import com.triangles.data.features.moves.source.local.dao.MovieDao
@@ -10,11 +11,11 @@ import javax.inject.Inject
 class MovesLocalDataSourceImpl @Inject constructor(
     private val database: MovesDatabase,
     private val movieDao: MovieDao
-) : MovesLocalDataSource {
+) : MoviesLocalDataSource {
 
-    override fun observeMovies(): Flow<List<MovieEntity>> = movieDao.observeMovies()
+    override fun getMovies(): PagingSource<Int, MovieEntity> = movieDao.getMovies()
 
-    override suspend fun getMovies(): List<MovieEntity> = movieDao.getMovies()
+    override fun getMovieById(movieId: Int): Flow<MovieEntity?> = movieDao.getMovieById(movieId)
 
     override suspend fun hasMovies(): Boolean = movieDao.hasMovies()
 

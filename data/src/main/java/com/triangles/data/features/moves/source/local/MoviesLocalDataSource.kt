@@ -1,13 +1,14 @@
 package com.triangles.data.features.moves.source.local
 
+import androidx.paging.PagingSource
 import com.triangles.data.features.moves.source.local.entity.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
-interface MovesLocalDataSource {
+interface MoviesLocalDataSource {
 
-    fun observeMovies(): Flow<List<MovieEntity>>
+    fun getMovies(): PagingSource<Int, MovieEntity>
 
-    suspend fun getMovies(): List<MovieEntity>
+    fun getMovieById(movieId: Int): Flow<MovieEntity?>
 
     suspend fun hasMovies(): Boolean
 

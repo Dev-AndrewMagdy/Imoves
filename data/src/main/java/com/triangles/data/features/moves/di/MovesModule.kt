@@ -1,12 +1,12 @@
 package com.triangles.data.features.moves.di
 
-import com.triangles.data.features.moves.repository.MovesRepositoryImpl
-import com.triangles.data.features.moves.source.local.MovesLocalDataSource
+import com.triangles.data.features.moves.repository.MoviesRepositoryImpl
+import com.triangles.data.features.moves.source.local.MoviesLocalDataSource
 import com.triangles.data.features.moves.source.local.MovesLocalDataSourceImpl
 import com.triangles.data.features.moves.source.remote.MovesApi
 import com.triangles.data.features.moves.source.remote.MovesRemoteDataSource
 import com.triangles.data.features.moves.source.remote.MovesRemoteDataSourceImpl
-import com.triangles.domain.features.moves.repository.MovesRepository
+import com.triangles.domain.features.moves.repository.MoviesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,7 +21,7 @@ abstract class MovesModule {
 
     @Binds
     @Singleton
-    abstract fun bindMovesRepository(repository: MovesRepositoryImpl): MovesRepository
+    abstract fun bindMovesRepository(repository: MoviesRepositoryImpl): MoviesRepository
 
     @Binds
     @Singleton
@@ -29,7 +29,7 @@ abstract class MovesModule {
 
     @Binds
     @Singleton
-    abstract fun bindMovesLocalDataSource(dataSource: MovesLocalDataSourceImpl): MovesLocalDataSource
+    abstract fun bindMovesLocalDataSource(dataSource: MovesLocalDataSourceImpl): MoviesLocalDataSource
 
     companion object {
 

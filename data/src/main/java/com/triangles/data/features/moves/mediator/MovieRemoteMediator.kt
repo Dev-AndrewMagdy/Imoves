@@ -5,7 +5,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.triangles.data.features.moves.mapper.MovieEntityMapper
-import com.triangles.data.features.moves.source.local.MovesLocalDataSource
+import com.triangles.data.features.moves.source.local.MoviesLocalDataSource
 import com.triangles.data.features.moves.source.local.entity.MovieEntity
 import com.triangles.data.features.moves.source.remote.MovesRemoteDataSource
 import com.triangles.data.util.mapper.mapAll
@@ -15,7 +15,7 @@ import kotlin.coroutines.cancellation.CancellationException
 @OptIn(ExperimentalPagingApi::class)
 class MovieRemoteMediator @Inject constructor(
     private val remoteDataSource: MovesRemoteDataSource,
-    private val localDataSource: MovesLocalDataSource,
+    private val localDataSource: MoviesLocalDataSource,
     private val entityMapper: MovieEntityMapper
 ) : RemoteMediator<Int, MovieEntity>() {
 
@@ -31,7 +31,7 @@ class MovieRemoteMediator @Inject constructor(
         state: PagingState<Int, MovieEntity>
     ): MediatorResult {
         val page = when (loadType) {
-            LoadType.REFRESH -> FIRST_PAGE
+            LoadType.REFRESH -> 1
 
             LoadType.PREPEND ->
                 return MediatorResult.Success(endOfPaginationReached = true)
@@ -58,9 +58,5 @@ class MovieRemoteMediator @Inject constructor(
         } catch (exception: Exception) {
             MediatorResult.Error(exception)
         }
-    }
-
-    private companion object {
-        const val FIRST_PAGE = 1
     }
 }
