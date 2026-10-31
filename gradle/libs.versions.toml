@@ -19,6 +19,7 @@ paging = "3.5.3"
 chucker = "4.3.1"
 hilt = "2.60.1"
 timber = "5.0.1"
+coroutines = "1.10.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +57,9 @@ chucker-no-op = { group = "com.github.chuckerteam.chucker", name = "library-no-o
 
 # Logging
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+# Coroutines
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 
 # Dependency injection
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
