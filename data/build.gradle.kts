@@ -1,5 +1,3 @@
-import com.triangles.buildlogic.staging
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.ksp)
@@ -65,6 +63,9 @@ dependencies {
     // Debug tooling
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
+
+    // Logging
+    implementation(libs.timber)
     // Dependency injection
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
