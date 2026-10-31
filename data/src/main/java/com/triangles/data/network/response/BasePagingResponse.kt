@@ -2,7 +2,7 @@ package com.triangles.data.network.response
 
 import com.google.gson.annotations.SerializedName
 
-data class PaginationResponse<T>(
+data class BasePagingResponse<T>(
     @SerializedName("page")
     val page: Int = 1,
     @SerializedName("total_pages")

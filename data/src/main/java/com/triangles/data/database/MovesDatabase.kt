@@ -7,7 +7,7 @@ import com.triangles.data.features.moves.source.local.entity.MovieEntity
 
 @Database(
     entities = [MovieEntity::class],
-    version = 1
+    version = 2
 )
 abstract class MovesDatabase : RoomDatabase() {
 

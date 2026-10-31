@@ -9,7 +9,9 @@ interface MovesLocalDataSource {
 
     suspend fun getMovies(): List<MovieEntity>
 
-    suspend fun saveMovies(movies: List<MovieEntity>)
+    suspend fun hasMovies(): Boolean
+
+    suspend fun saveMovies(movies: List<MovieEntity>, clearFirst: Boolean = false)
 
     suspend fun clearMovies()
 }

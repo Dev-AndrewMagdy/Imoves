@@ -1,5 +1,6 @@
 package com.triangles.data.features.moves.source.local.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
@@ -10,10 +11,12 @@ import kotlinx.coroutines.flow.Flow
 interface MovieDao {
 
     @Query("SELECT * FROM movies ORDER BY popularity DESC")
-    fun observeMovies(): Flow<List<MovieEntity>>
+    fun getMoves(): PagingSource<Int, MovieEntity>
 
-    @Query("SELECT * FROM movies ORDER BY popularity DESC")
-    suspend fun getMovies(): List<MovieEntity>
+    @Query("SELECT * FROM movies WHERE id = :movieId LIMIT 1")
+    fun getMovieById(movieId: Int): Flow<MovieEntity?>
+    @Query("SELECT EXISTS(SELECT 1 FROM movies)")
+    suspend fun hasMovies(): Boolean
 
     @Upsert
     suspend fun upsertMovies(movies: List<MovieEntity>)

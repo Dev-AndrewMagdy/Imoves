@@ -21,7 +21,9 @@ object DatabaseModule {
             context,
             MovesDatabase::class.java,
             MovesDatabase.NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration(dropAllTables = true)
+            .build()
 
     @Provides
     fun provideMovieDao(database: MovesDatabase): MovieDao = database.movieDao()
