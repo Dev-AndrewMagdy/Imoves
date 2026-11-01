@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Imoves</string>
+
+    <string name="error_no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="error_no_connection">تعذر الاتصال بالخادم</string>
+    <string name="error_timeout">انتهت مهلة الطلب، حاول مرة أخرى</string>
+    <string name="error_unauthorized">انتهت جلستك، يرجى تسجيل الدخول مرة أخرى</string>
+    <string name="error_not_found">المحتوى المطلوب غير موجود</string>
+    <string name="error_rate_limited">تم إرسال طلبات كثيرة، حاول لاحقًا</string>
+    <string name="error_server">حدث خطأ في الخادم، حاول لاحقًا</string>
+    <string name="error_generic">حدث خطأ غير متوقع</string>
+    <string name="action_retry">إعادة المحاولة</string>
 </resources>

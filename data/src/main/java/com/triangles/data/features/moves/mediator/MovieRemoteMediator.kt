@@ -8,6 +8,8 @@ import com.triangles.data.features.moves.mapper.MovieEntityMapper
 import com.triangles.data.features.moves.source.local.MoviesLocalDataSource
 import com.triangles.data.features.moves.source.local.entity.MovieEntity
 import com.triangles.data.features.moves.source.remote.MovesRemoteDataSource
+import com.triangles.data.network.rethrowIfCancellation
+import com.triangles.data.network.toDomainException
 import com.triangles.data.util.mapper.mapAll
 import javax.inject.Inject
 import kotlin.coroutines.cancellation.CancellationException
@@ -39,14 +41,18 @@ class MovieRemoteMediator @Inject constructor(
             LoadType.APPEND -> state.pages.size + 1
         }
 
+        // The remote source already reports DomainErrorException failures.
+        val pagination = remoteDataSource.getMovies(page)
+            .getOrElse { exception ->
+                exception.rethrowIfCancellation()
+                return MediatorResult.Error(exception)
+            }
+
+        val movies = entityMapper.mapAll(pagination.results)
+        val endOfPaginationReached = movies.isEmpty() ||
+            (pagination.totalPages > 0 && pagination.page >= pagination.totalPages)
+
         return try {
-            val pagination = remoteDataSource.getMovies(page)
-                .getOrElse { return MediatorResult.Error(it) }
-
-            val movies = entityMapper.mapAll(pagination.results)
-            val endOfPaginationReached = movies.isEmpty() ||
-                (pagination.totalPages > 0 && pagination.page >= pagination.totalPages)
-
             localDataSource.saveMovies(
                 movies = movies,
                 clearFirst = loadType == LoadType.REFRESH
@@ -56,7 +62,7 @@ class MovieRemoteMediator @Inject constructor(
         } catch (exception: CancellationException) {
             throw exception
         } catch (exception: Exception) {
-            MediatorResult.Error(exception)
+            MediatorResult.Error(exception.toDomainException())
         }
     }
 }
