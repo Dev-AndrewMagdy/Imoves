@@ -64,6 +64,9 @@ dependencies {
 
     // Dependency injection
     implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.google.material)
+    implementation(libs.androidx.paging.compose)
     ksp(libs.hilt.compiler)
 
     // Logging
