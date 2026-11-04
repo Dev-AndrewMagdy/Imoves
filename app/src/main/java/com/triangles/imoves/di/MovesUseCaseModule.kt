@@ -1,4 +1,4 @@
-package com.triangles.domain.features.moves.di
+package com.triangles.imoves.di
 
 import com.triangles.domain.features.moves.repository.MoviesRepository
 import com.triangles.domain.features.moves.usecase.GetMoviesUseCase
