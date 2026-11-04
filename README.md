@@ -238,9 +238,6 @@ makes cached content available immediately.
 whether the feed is complete. This avoids deriving pagination from a potentially stale `PagingState`
 captured before the local refresh has populated Room.
 
-**Local-only search.** The backend does not expose a search endpoint, so queries are matched against
-the local Room cache. This keeps search responsive and avoids unnecessary requests.
-
 **Type-safe navigation.** Navigation destinations are serializable data classes/objects instead of
 string routes, and all navigation operations go through the `Navigator` abstraction.
 
@@ -256,27 +253,6 @@ The app ships with Arabic strings and RTL layout support. All copy lives in
 `app/src/main/res/values/strings.xml`. To add a language, create the appropriate
 `values-<locale>/strings.xml` resource directory.
 
-## Roadmap
-
-- [ ] Add application screenshots and a demo GIF.
-- [ ] Add a CI workflow for lint, unit tests and debug builds.
-- [ ] Add ViewModel unit tests for search debouncing and navigation effects.
-- [ ] Support remote search when the backend exposes a search endpoint.
-- [ ] Add favorites and watchlist support.
-
-## Contributing
-
-1. Fork the repository and create a feature branch.
-2. Follow the existing module boundaries and Kotlin/Compose style.
-3. Add or update tests for behavior changes.
-4. Ensure `./gradlew :app:compileDebugKotlin :domain:testDebugUnitTest :data:testDebugUnitTest` passes.
-5. Open a pull request with a clear description of the change.
-
-## License
-
-No license file is currently included in this repository. Until a license is added, the source is
-provided for viewing only and may not be redistributed. If you intend to open-source the project, add a
-`LICENSE` file at the repository root.
 
 ## Author
 
