@@ -9,12 +9,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -43,6 +45,8 @@ fun <State, Effect, Event> BaseScreen(
     onEffect: (Effect) -> Unit,
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
+    topBar: @Composable () -> Unit = {},
+    contentWindowInsets: WindowInsets = ScaffoldDefaults.contentWindowInsets,
     loadingContent: @Composable BoxScope.() -> Unit = { CircularProgressIndicator() },
     errorContent: @Composable BoxScope.(error: AppError, onRetry: () -> Unit) -> Unit =
         { error, retry -> DefaultErrorContent(error, retry) },
@@ -67,7 +71,9 @@ fun <State, Effect, Event> BaseScreen(
 
     Scaffold(
         modifier = modifier,
+        topBar = topBar,
         containerColor = MaterialTheme.colorScheme.background,
+        contentWindowInsets = contentWindowInsets,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
         StateBox(

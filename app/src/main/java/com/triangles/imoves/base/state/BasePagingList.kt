@@ -34,11 +34,18 @@ import com.triangles.imoves.R
 
 fun <T : Any> LazyPagingItems<T>.toScreenState(): ScreenState {
     val refresh = loadState.refresh
+    val append = loadState.append
+
     return when {
         itemCount > 0 -> ScreenState.Content
+
         refresh is LoadState.Loading -> ScreenState.Loading
+
         refresh is LoadState.Error -> ScreenState.Error(refresh.error.asAppError())
-        else -> ScreenState.Empty
+
+        append is LoadState.NotLoading && append.endOfPaginationReached -> ScreenState.Empty
+
+        else -> ScreenState.Loading
     }
 }
 

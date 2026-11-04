@@ -25,21 +25,39 @@ class MoviesRepositoryImpl @Inject constructor(
     private val remoteMediator: MovieRemoteMediator
 ) : MoviesRepository {
 
+    /**
+     * The backend has no search endpoint, so a query is matched against the local Room cache.
+     * Searching therefore uses a local-only pager (no remote mediator) and never hits the network.
+     */
     @OptIn(ExperimentalPagingApi::class)
-    override fun getMoves(): Flow<PagingData<Movie>> =
-        Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                prefetchDistance = 5,
-                enablePlaceholders = false
-            ),
-            remoteMediator = remoteMediator,
-            pagingSourceFactory = localDataSource::getMovies
-        ).flow.map { pagingData ->
-                pagingData.map { entity -> domainMapper.map(entity) }
+    override fun getMoves(query: String): Flow<PagingData<Movie>> {
+        val pager = if (query.isBlank()) {
+            Pager(
+                config = PAGING_CONFIG,
+                remoteMediator = remoteMediator,
+                pagingSourceFactory = { localDataSource.getMovies(query = "") }
+            )
+        } else {
+            Pager(
+                config = PAGING_CONFIG,
+                pagingSourceFactory = { localDataSource.getMovies(query = query) }
+            )
         }
+
+        return pager.flow.map { pagingData ->
+            pagingData.map { entity -> domainMapper.map(entity) }
+        }
+    }
 
     override fun getMovieById(movieId: Int): Flow<MovieDetails?> =
         localDataSource.getMovieById(movieId)
             .map { entity -> entity?.let(detailsMapper::map) }
+
+    private companion object {
+        val PAGING_CONFIG = PagingConfig(
+            pageSize = 20,
+            prefetchDistance = 5,
+            enablePlaceholders = false
+        )
+    }
 }

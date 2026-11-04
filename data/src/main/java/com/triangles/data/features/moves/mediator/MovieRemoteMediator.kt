@@ -7,6 +7,7 @@ import androidx.paging.RemoteMediator
 import com.triangles.data.features.moves.mapper.MovieEntityMapper
 import com.triangles.data.features.moves.source.local.MoviesLocalDataSource
 import com.triangles.data.features.moves.source.local.entity.MovieEntity
+import com.triangles.data.features.moves.source.local.entity.RemotePageState
 import com.triangles.data.features.moves.source.remote.MovesRemoteDataSource
 import com.triangles.data.network.rethrowIfCancellation
 import com.triangles.data.network.toDomainException
@@ -33,12 +34,25 @@ class MovieRemoteMediator @Inject constructor(
         state: PagingState<Int, MovieEntity>
     ): MediatorResult {
         val page = when (loadType) {
-            LoadType.REFRESH -> 1
+            LoadType.REFRESH -> FIRST_PAGE
 
             LoadType.PREPEND ->
                 return MediatorResult.Success(endOfPaginationReached = true)
 
-            LoadType.APPEND -> state.pages.size + 1
+            // Do not derive the page from state.pages. Paging can pass an APPEND request whose
+            // PagingState was captured before the local refresh populated Room, and relying on it
+            // would report the end of pagination on the very first scroll. The persisted state is
+            // the source of truth.
+            LoadType.APPEND -> {
+                val pageState = localDataSource.getRemotePageState()
+                    ?: return MediatorResult.Success(endOfPaginationReached = true)
+
+                if (pageState.reachedEnd) {
+                    return MediatorResult.Success(endOfPaginationReached = true)
+                }
+
+                pageState.nextPage
+            }
         }
 
         // The remote source already reports DomainErrorException failures.
@@ -52,9 +66,15 @@ class MovieRemoteMediator @Inject constructor(
         val endOfPaginationReached = movies.isEmpty() ||
             (pagination.totalPages > 0 && pagination.page >= pagination.totalPages)
 
+        val nextPageState = RemotePageState(
+            nextPage = if (endOfPaginationReached) page else page + 1,
+            reachedEnd = endOfPaginationReached
+        )
+
         return try {
             localDataSource.saveMovies(
                 movies = movies,
+                pageState = nextPageState,
                 clearFirst = loadType == LoadType.REFRESH
             )
 
@@ -64,5 +84,9 @@ class MovieRemoteMediator @Inject constructor(
         } catch (exception: Exception) {
             MediatorResult.Error(exception.toDomainException())
         }
+    }
+
+    private companion object {
+        const val FIRST_PAGE = 1
     }
 }

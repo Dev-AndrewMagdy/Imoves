@@ -13,6 +13,6 @@ class MovieDomainMapper @Inject constructor() : Mapper<MovieEntity, Movie> {
         id = input.id,
         title = input.title,
         releaseDate = input.releaseDate.orEmpty(),
-        posterImage = input.posterPath.orEmpty()
+        posterImage = input.posterPath.orEmpty(),
     )
 }
