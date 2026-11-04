@@ -1,6 +1,14 @@
+import com.triangles.buildlogic.buildConfigStringField
+import com.triangles.buildlogic.getConfigProperty
+import com.triangles.buildlogic.staging
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.imoves.helpers)
 }
 
 android {
@@ -15,15 +23,22 @@ android {
         applicationId = "com.triangles.imoves"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
+        versionCode = getConfigProperty("VER-NUMBER").toInt()
+        versionName = getConfigProperty("VERSION-NAME")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigStringField("API_URL", getConfigProperty("DEV-API-URL"))
+        }
+        staging {
+            matchingFallbacks += listOf("release")
+            buildConfigStringField("API_URL", getConfigProperty("STAGING-API-URL"))
+        }
         release {
             isMinifyEnabled = false
+            buildConfigStringField("API_URL", getConfigProperty("PRODUCTION-API-URL"))
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -36,18 +51,41 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
+    // Dependency injection
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.google.material)
+    implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+    ksp(libs.hilt.compiler)
+
+    // Logging
+    implementation(libs.timber)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.core)
+
+    // Image loading
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

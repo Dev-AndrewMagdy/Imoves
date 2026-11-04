@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -24,3 +25,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Imoves"
 include(":app")
+include(":data")
+include(":domain")

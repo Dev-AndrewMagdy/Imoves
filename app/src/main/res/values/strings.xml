@@ -1,3 +1,50 @@
 <resources>
     <string name="app_name">Imoves</string>
+
+    <!-- Discover -->
+    <string name="discover_title">اكتشف الأفلام</string>
+    <string name="discover_subtitle">اعثر على فيلمك المفضل القادم</string>
+    <string name="search_movies_hint">ابحث عن فيلم</string>
+    <string name="clear_search">مسح البحث</string>
+    <string name="popular_movies">الأكثر رواجًا</string>
+    <plurals name="movies_count">
+        <item quantity="one">فيلم واحد</item>
+        <item quantity="two">فيلمان</item>
+        <item quantity="few">%1$d أفلام</item>
+        <item quantity="many">%1$d فيلمًا</item>
+        <item quantity="other">%1$d فيلم</item>
+    </plurals>
+    <string name="no_movies_title">لا توجد أفلام بعد</string>
+    <string name="no_movies_message">ستظهر الأفلام هنا بعد تحميلها.</string>
+    <string name="no_movies_match_title">لا توجد نتائج</string>
+    <string name="no_movies_match_message">جرّب كلمة بحث مختلفة.</string>
+    <string name="movie_poster">ملصق فيلم %1$s</string>
+
+    <!-- Details -->
+    <string name="navigate_back">الرجوع</string>
+    <string name="overview">نظرة عامة</string>
+    <string name="overview_not_available">لا تتوفر نظرة عامة لهذا الفيلم.</string>
+    <string name="release_date_label">تاريخ الإصدار</string>
+    <string name="language_label">اللغة الأصلية</string>
+    <string name="not_available">غير متوفر</string>
+    <string name="not_rated">غير مُقيَّم</string>
+    <plurals name="votes_count">
+        <item quantity="one">صوت واحد</item>
+        <item quantity="two">صوتان</item>
+        <item quantity="few">%1$d أصوات</item>
+        <item quantity="many">%1$d صوتًا</item>
+        <item quantity="other">%1$d صوت</item>
+    </plurals>
+    <string name="original_title">العنوان الأصلي: %1$s</string>
+
+    <string name="error_no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="error_no_connection">تعذر الاتصال بالخادم</string>
+    <string name="error_timeout">انتهت مهلة الطلب، حاول مرة أخرى</string>
+    <string name="error_unauthorized">انتهت جلستك، يرجى تسجيل الدخول مرة أخرى</string>
+    <string name="error_not_found">المحتوى المطلوب غير موجود</string>
+    <string name="error_rate_limited">تم إرسال طلبات كثيرة، حاول لاحقًا</string>
+    <string name="error_server">حدث خطأ في الخادم، حاول لاحقًا</string>
+    <string name="error_generic">حدث خطأ غير متوقع</string>
+    <string name="empty_content">لا يوجد محتوى للعرض</string>
+    <string name="action_retry">إعادة المحاولة</string>
 </resources>
