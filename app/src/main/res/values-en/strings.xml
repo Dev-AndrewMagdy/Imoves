@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Imoves</string>
+
+    <!-- Discover -->
+    <string name="discover_title">Discover Movies</string>
+    <string name="discover_subtitle">Find your next favorite movie</string>
+    <string name="search_movies_hint">Search movies</string>
+    <string name="clear_search">Clear search</string>
+    <string name="popular_movies">Popular now</string>
+    <plurals name="movies_count">
+        <item quantity="one">%1$d movie</item>
+        <item quantity="other">%1$d movies</item>
+    </plurals>
+    <string name="no_movies_title">Nothing to discover yet</string>
+    <string name="no_movies_message">Movies will appear here once they load.</string>
+    <string name="no_movies_match_title">No movies found</string>
+    <string name="no_movies_match_message">Try a different search term.</string>
+    <string name="movie_poster">Movie poster for %1$s</string>
+
+    <!-- Details -->
+    <string name="navigate_back">Navigate back</string>
+    <string name="overview">Overview</string>
+    <string name="overview_not_available">No overview is available for this movie.</string>
+    <string name="release_date_label">Release date</string>
+    <string name="language_label">Original language</string>
+    <string name="not_available">Not available</string>
+    <string name="not_rated">Not rated</string>
+    <plurals name="votes_count">
+        <item quantity="one">%1$d vote</item>
+        <item quantity="other">%1$d votes</item>
+    </plurals>
+    <string name="original_title">Original title: %1$s</string>
+
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_no_connection">Could not connect to the server</string>
+    <string name="error_timeout">The request timed out, please try again</string>
+    <string name="error_unauthorized">Your session has expired, please sign in again</string>
+    <string name="error_not_found">The requested content was not found</string>
+    <string name="error_rate_limited">Too many requests, please try again later</string>
+    <string name="error_server">A server error occurred, please try again later</string>
+    <string name="error_generic">Something went wrong</string>
+    <string name="empty_content">No content to show</string>
+    <string name="action_retry">Retry</string>
+</resources>
