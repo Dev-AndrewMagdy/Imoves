@@ -87,19 +87,15 @@ observes it, while a `RemoteMediator` keeps the cache in sync with the backend.
 
 ### Data Flow
 
-```text
-          Compose UI
-              │  user events
-              ▼
-          ViewModel ─────────► UseCase ─────────► MoviesRepository
-                                                    │
-                                ┌───────────────────┴───────────────────┐
-                                ▼                                       ▼
-                     Room (single source of truth)              RemoteMediator
-                                ▲                                       │
-                                └──────────── Paging 3 ◄────────────────┘
-                                                  │
-                                          Retrofit /api/movies
+```mermaid
+flowchart LR
+    UI[Compose UI] -->|Event| VM[ViewModel]
+    VM -->|State / Effect| UI
+    VM --> Repo[Repository]
+    Repo --> Room[(Room)]
+    Repo --> API[Movies API]
+    API -->|writes| Room
+    Room -->|Flow| Repo
 ```
 
 - The ViewModel exposes a `Flow<PagingData<Movie>>` collected by the Compose UI.
